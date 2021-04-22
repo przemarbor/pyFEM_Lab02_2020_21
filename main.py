@@ -1,25 +1,34 @@
 import numpy as np
+import matplotlib.pyplot as plt
+# import scipy.integrate as spint
+#from AutomatycznyGeneratorGeometrii import generujTabliceGeometrii as GenTab
+from GeometriaDefinicja import *
+from AutomatycznyGeneratorGeometrii import *
+from RysujGeometrie import *
 
-# parametry sterujace
-c = 0
-f = 0 
-
-# geometria
-x_a = 0
-x_b = 1 
-
-WEZLY = np.array( [[1, 0], 
-                   [2, 1],
-                   [3, 0.5],
-                   [4, 0.75]])
-
-# TODO: ELEMENTY = np.array( )
-
-# warunki brzegowe
-twb_L = 'D' # TODO - reszta ....
+if __name__ == '__main__':
+    
+    # Preprocessing
+    
+    ## parametry sterujace
+    c = 0 
+    f = lambda x: 1 # wymuszenie
 
 
-rysujGeom(WEZLY, ELEMENTY)
+    ## 2. Geometria
+    ### 2.1 Definicja
+    WEZLY, ELEMENTY, WB = GeometriaDefinicja()
+    
+    ### lub Automatyczne wygenerowanie geometrii
+    x_a =  0 
+    x_b =  1
+    n = 5
+    WEZLY, ELEMENTY = AutomatycznyGeneratorGeometrii(x_a,x_b,n)
+    # warunki brzegowe
+    WB    = [{"ind": 1, "typ":'D', "wartosc":0}, 
+             {"ind": n, "typ":'D', "wartosc":1}]
+    
+    
+    RysujGeometrie(WEZLY, ELEMENTY, WB)
 
-
-print(WEZLY)
+    print(WEZLY)
